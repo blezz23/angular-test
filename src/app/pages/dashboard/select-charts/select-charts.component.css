@@ -1,0 +1,10 @@
+.select {
+  position: fixed;
+  left: 1rem;
+  bottom: 0.5rem;
+  z-index: 2;
+}
+.select .select__currencies {
+  opacity: 0.75;
+  font-size: 0.75em;
+}

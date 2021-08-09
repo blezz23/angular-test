@@ -1,0 +1,26 @@
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+
+  .dashboard__chart {
+    margin: 5px;
+
+    .dashboard__chart_edit {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 8px;
+
+      button {
+        font-size: 0.9em;
+        padding: 5px 10px;
+      }
+    }
+  }
+
+  .hide {
+    display: none;
+  }
+}

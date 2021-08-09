@@ -1,0 +1,18 @@
+<div class="select">
+  <mat-form-field appearance="outline">
+    <mat-label>Currencies</mat-label>
+    <mat-select [formControl]="chartsFormControl" multiple>
+      <mat-select-trigger>
+        {{chartsFormControl.value ? chartsFormControl.value[0] : ''}}
+        <span *ngIf="chartsFormControl.value?.length > 1" class="select__currencies">
+        (+{{chartsFormControl.value.length - 1}} {{chartsFormControl.value?.length === 2 ? 'other' : 'others'}})
+        </span>
+      </mat-select-trigger>
+      <mat-option
+        *ngFor="let chartData of (chartsData$ | async)"
+        [value]="chartData.id">
+        {{chartData.symbol}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>

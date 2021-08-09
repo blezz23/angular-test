@@ -1,16 +1,21 @@
-<div class="dashboard">
-  <div class="dashboard__chart" *ngFor="let chartData of (chartsData$ | async)"
-       [class.hide]="!chartData.show">
-    <chart-editor></chart-editor>
-    <google-chart #editable
-      [type]="chartData.type"
-      [data]="chartData.data"
-      [columns]="chartStyles.chartColumns"
-      [options]="chartStyles.options"
-    ></google-chart>
-    <div class="dashboard__chart_edit">
-<!--      <button (click)="editChart(editable, chartData.id)">Edit</button>-->
+<div class="main">
+  <div class="sidebar">
+    <select-charts></select-charts>
+    <datepicker></datepicker>
+  </div>
+  <div class="dashboard">
+    <div class="dashboard__chart" *ngFor="let chartData of (chartsData$ | async)"
+         [class.hide]="!chartData.show">
+      <chart-editor></chart-editor>
+      <google-chart #editable
+                    [type]="chartData.type"
+                    [data]="chartData.data"
+                    [columns]="chartStyles.chartColumns"
+                    [options]="chartStyles.options"
+      ></google-chart>
+      <div class="dashboard__chart_edit">
+        <!--      <button (click)="editChart(editable, chartData.id)">Edit</button>-->
+      </div>
     </div>
   </div>
-  <select-charts></select-charts>
 </div>

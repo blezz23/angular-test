@@ -23,9 +23,7 @@ export class DashboardComponent implements OnInit {
       backgroundColor: '#f0f8ff'
     }};
 
-  constructor(
-    private dashboardService: DashboardService,
-  ) {}
+  constructor(private dashboardService: DashboardService) {}
 
   ngOnInit(): void {
     this.chartsData$ = this.dashboardService.charts$;

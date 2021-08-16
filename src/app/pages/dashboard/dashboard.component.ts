@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { DashboardService } from "./dashboard.service";
 import { ChartModel } from "../../models/chart.model";
 import { Observable } from "rxjs";
-import { ChartBase } from "angular-google-charts";
 
 @Component({
   selector: 'app-dashboard',
@@ -16,7 +15,6 @@ export class DashboardComponent implements OnInit {
   public chartStyles = {
     chartColumns: ['Dates', 'Currency'],
     options: {
-      title: '',
       height: 500,
       width: 500,
       legend: 'bottom',
@@ -28,6 +26,4 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.chartsData$ = this.dashboardService.charts$;
   }
-
-  // public editChart(chart: ChartBase, id: number): void {}
 }

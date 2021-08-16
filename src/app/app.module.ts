@@ -6,6 +6,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeModule } from "./pages/home/home.module";
 import { DashboardModule } from "./pages/dashboard/dashboard.module";
+import { HttpClientModule } from "@angular/common/http";
+import { ConverterModule } from "./pages/converter/converter.module";
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { DashboardModule } from "./pages/dashboard/dashboard.module";
     AppRoutingModule,
     BrowserAnimationsModule,
     HomeModule,
-    DashboardModule
+    DashboardModule,
+    HttpClientModule,
+    ConverterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

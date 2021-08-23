@@ -1,11 +1,7 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from "rxjs";
-import {ConverterModel} from "../../models/converter.model";
-import {
-  CurrenciesService,
-  CurrenciesAmount,
-  CurrenciesData, CurrenciesList
-} from "../../services/currencies.service";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from "rxjs";
+import { ConverterModel } from "../../models/converter.model";
+import { CurrenciesService, CurrenciesAmount, CurrenciesData, CurrenciesList} from "../../services/currencies.service";
 
 @Injectable()
 
@@ -56,13 +52,13 @@ export class ConverterService {
   public onChanges(currencyName: string, id: number) {
     for (let symbol in this.currenciesList) {
       if (this.currenciesList[symbol] === currencyName && this.currenciesList.hasOwnProperty(symbol)) {
-        for (let converter in this.convertersState) {
-          if (this.convertersState[converter].id === id && this.convertersState.hasOwnProperty(converter) && this.currenciesAmountList) {
-            this.convertersState[converter] = {
-              id: id,
-              symbol: symbol,
-              fullName: currencyName,
-              amount: this.currenciesAmountList[symbol]
+        for (let converterItem in this.convertersState) {
+          if (this.convertersState[converterItem].id === id && this.convertersState.hasOwnProperty(converterItem) && this.currenciesAmountList!) {
+            this.convertersState[converterItem] = {
+                id: id,
+                symbol: symbol,
+                fullName: currencyName,
+                amount: this.currenciesAmountList[symbol]
             }
           }
           this._converters$.next(this.convertersState)
@@ -72,8 +68,11 @@ export class ConverterService {
   }
 
   public getResult(): number {
-    if (this.convertersState[0].amount !== 0 && this.convertersState[1].amount !== 0) {
-      return +(this.convertersState[0].amount/this.convertersState[1].amount).toFixed(4);
+    const amount1 = this.convertersState[0].amount;
+    const amount2 = this.convertersState[1].amount;
+
+    if (amount1 !== 0 && amount2 !== 0) {
+      return +(amount1/amount2).toFixed(4);
     }
     return 0;
   }

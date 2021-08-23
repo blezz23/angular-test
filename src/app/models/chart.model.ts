@@ -6,4 +6,5 @@ export interface ChartModel {
   type: ChartType;
   data: Row[];
   show: boolean;
+  options: object;
 }

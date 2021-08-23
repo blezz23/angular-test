@@ -19,7 +19,7 @@ html {
 body {
   background: #f0f8ff;
 
-  //.google-visualization-charteditor-dialog {
-  //  z-index: 1000;
-  //}
+  .google-visualization-charteditor-dialog {
+    z-index: 10;
+  }
 }

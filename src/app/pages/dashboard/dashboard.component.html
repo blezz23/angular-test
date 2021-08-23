@@ -4,17 +4,17 @@
     <datepicker></datepicker>
   </div>
   <div class="dashboard">
+    <chart-editor></chart-editor>
     <div class="dashboard__chart" *ngFor="let chartData of (chartsData$ | async)"
          [class.hide]="!chartData.show">
-      <chart-editor></chart-editor>
       <google-chart #editable
                     [type]="chartData.type"
                     [data]="chartData.data"
-                    [columns]="chartStyles.chartColumns"
-                    [options]="chartStyles.options"
+                    [columns]="chartColumns"
+                    [options]="chartData.options"
       ></google-chart>
       <div class="dashboard__chart_edit">
-        <!--      <button (click)="editChart(editable, chartData.id)">Edit</button>-->
+        <button (click)="editChart(editable, chartData.id)">Edit</button>
       </div>
     </div>
   </div>

@@ -6,8 +6,9 @@ import { AppRoutingModule } from "./app-routing.module";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeModule } from "./pages/home/home.module";
 import { DashboardModule } from "./pages/dashboard/dashboard.module";
-import { HttpClientModule } from "@angular/common/http";
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import { ConverterModule } from "./pages/converter/converter.module";
+import {APIInterceptor} from "./api-interceptor";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,11 @@ import { ConverterModule } from "./pages/converter/converter.module";
     HttpClientModule,
     ConverterModule
   ],
-  providers: [],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: APIInterceptor,
+    multi: true,
+  }],
   bootstrap: [AppComponent]
 })
 

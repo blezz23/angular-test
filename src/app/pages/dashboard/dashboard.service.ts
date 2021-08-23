@@ -6,6 +6,16 @@ import { CurrenciesService, CurrenciesData } from "../../services/currencies.ser
 import * as moment from 'moment';
 
 const DEFAULT_DATA = ['', 0];
+const FREEZE_OPTIONS = {
+  height: 500,
+  width: 500,
+};
+const DEFAULT_OPTIONS = {
+  height: FREEZE_OPTIONS.height,
+  width: FREEZE_OPTIONS.width,
+  legend: 'bottom',
+  backgroundColor: '#f0f8ff'
+}
 
 const CHARTS: ChartModel[] = [
   {
@@ -14,6 +24,7 @@ const CHARTS: ChartModel[] = [
     type: ChartType.LineChart,
     data: [DEFAULT_DATA],
     show: true,
+    options: DEFAULT_OPTIONS
   },
   {
     id: 2,
@@ -21,6 +32,7 @@ const CHARTS: ChartModel[] = [
     type: ChartType.LineChart,
     data: [DEFAULT_DATA],
     show: true,
+    options: DEFAULT_OPTIONS
   },
   {
     id: 3,
@@ -28,6 +40,7 @@ const CHARTS: ChartModel[] = [
     type: ChartType.LineChart,
     data: [DEFAULT_DATA],
     show: true,
+    options: DEFAULT_OPTIONS
   },
   {
     id: 4,
@@ -35,6 +48,7 @@ const CHARTS: ChartModel[] = [
     type: ChartType.LineChart,
     data: [DEFAULT_DATA],
     show: true,
+    options: DEFAULT_OPTIONS
   },
 ];
 
@@ -78,5 +92,18 @@ export class DashboardService {
         });
         this.setCharts(newCharts);
       })
+  }
+
+  public setOptions(id: number, chartType: ChartType, options: object) {
+    const newOptions = this._charts$.value.map(chart => {
+      if (chart.id === id) {
+        return {
+          ...chart,
+          type: chartType,
+          options: { ...options, height: FREEZE_OPTIONS.height, width: FREEZE_OPTIONS.width } }
+      } else
+        return chart
+    });
+    this.setCharts(newOptions);
   }
 }

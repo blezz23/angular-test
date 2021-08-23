@@ -3,7 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  apiUrl: 'https://openexchangerates.org/api',
+  appId: '813c11eb31034b44a46129fceaa995b7',
+  baseCurrency: 'USD'
 };
 
 /*

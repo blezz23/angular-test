@@ -3,22 +3,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import * as moment from "moment";
-
-export interface CurrenciesAmount {
-  [key: string]: number;
-}
-
-export interface CurrenciesData {
-  base: string;
-  rates: CurrenciesAmount;
-  disclaimer: string;
-  license: string;
-  timestamp: number;
-}
-
-export interface CurrenciesList {
-  [key: string]: string;
-}
+import { CurrenciesData, CurrenciesSymbolList } from "../models/currencies.model";
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +12,8 @@ export interface CurrenciesList {
 export class CurrenciesService {
   constructor(private http: HttpClient) {}
 
-  public getCurrenciesName(): Observable<CurrenciesList> {
-    return this.http.get<CurrenciesList>(
+  public getCurrenciesName(): Observable<CurrenciesSymbolList> {
+    return this.http.get<CurrenciesSymbolList>(
       'currencies.json')
       .pipe(catchError(CurrenciesService.handleError));
   }

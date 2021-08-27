@@ -1,0 +1,17 @@
+.converter__select {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 15%;
+  box-sizing: border-box;
+
+  h4 {
+    margin-bottom: 5%;
+    font-size: 1.25em;
+  }
+
+  span {
+    font-size: 1.1em;
+  }
+}

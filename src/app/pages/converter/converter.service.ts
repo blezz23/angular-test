@@ -1,46 +1,48 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
 import { ConverterModel } from "../../models/converter.model";
-import { CurrenciesService, CurrenciesAmount, CurrenciesData, CurrenciesList} from "../../services/currencies.service";
+import { CurrenciesService} from "../../services/currencies.service";
+import { CurrenciesAmount, CurrenciesData, CurrenciesSymbolList } from "../../models/currencies.model";
+
+const DEFAULT_DATA = [{
+  id: 1,
+  symbol: '',
+  fullName: '',
+  amount: 0
+}, {
+  id: 2,
+  symbol: '',
+  fullName: '',
+  amount: 0
+}];
 
 @Injectable()
 
 export class ConverterService {
-  private _converters$ = new BehaviorSubject<ConverterModel[]>([]);
-  readonly converters$ = this._converters$.asObservable();
+  private _convertersState$ = new BehaviorSubject<ConverterModel[]>([]);
+  readonly convertersState$ = this._convertersState$.asObservable();
   private _currenciesFullNameList$ = new BehaviorSubject<string[]>([]);
   readonly currenciesFullNameList$ = this._currenciesFullNameList$.asObservable();
-  private currenciesList?: CurrenciesList;
+  private currenciesSymbolList?: CurrenciesSymbolList;
   private currenciesAmountList?: CurrenciesAmount;
-  private convertersState = [{
-    id: 1,
-    symbol: '',
-    fullName: '',
-    amount: 0
-  }, {
-    id: 2,
-    symbol: '',
-    fullName: '',
-    amount: 0
-  }]
 
   constructor(
     private currenciesService: CurrenciesService
   ) {
-    this._converters$.next(this.convertersState)
+    this._convertersState$.next(DEFAULT_DATA);
     this.getCurrenciesName();
   }
 
   private getCurrenciesName() {
     this.currenciesService.getCurrenciesName().subscribe(
-      (data: CurrenciesList) => {
-        this.currenciesList = data;
+      (data: CurrenciesSymbolList) => {
+        this.currenciesSymbolList = data;
         this._currenciesFullNameList$.next(Object.values(data));
         this.getCurrenciesAmount(data);
       });
   }
 
-  private getCurrenciesAmount(data: CurrenciesList) {
+  private getCurrenciesAmount(data: CurrenciesSymbolList) {
     this.currenciesService.getCurrenciesAmount(new Date, Object.keys(data))
       .subscribe(
         (data: CurrenciesData) => {
@@ -50,29 +52,27 @@ export class ConverterService {
   }
 
   public onChanges(currencyName: string, id: number) {
-    for (let symbol in this.currenciesList) {
-      if (this.currenciesList[symbol] === currencyName && this.currenciesList.hasOwnProperty(symbol)) {
-        for (let converterItem in this.convertersState) {
-          if (this.convertersState[converterItem].id === id && this.convertersState.hasOwnProperty(converterItem) && this.currenciesAmountList!) {
-            this.convertersState[converterItem] = {
-                id: id,
-                symbol: symbol,
-                fullName: currencyName,
-                amount: this.currenciesAmountList[symbol]
-            }
-          }
-          this._converters$.next(this.convertersState)
+    if (this.currenciesAmountList) {
+      for (let symbol in this.currenciesSymbolList) {
+        if (this.currenciesSymbolList[symbol] === currencyName) {
+          const amount = this.currenciesAmountList[symbol];
+          const newConverterState = this._convertersState$.value.map(converterItem => {
+            return converterItem.id === id
+              ? { id: id, symbol: symbol, fullName: currencyName, amount: amount }
+              : converterItem
+          });
+          this._convertersState$.next(newConverterState);
         }
       }
     }
   }
 
   public getResult(): number {
-    const amount1 = this.convertersState[0].amount;
-    const amount2 = this.convertersState[1].amount;
+    const amount1 = this._convertersState$.value[0].amount;
+    const amount2 = this._convertersState$.value[1].amount;
 
     if (amount1 !== 0 && amount2 !== 0) {
-      return +(amount1/amount2).toFixed(4);
+      return +(amount1/amount2).toFixed(3);
     }
     return 0;
   }

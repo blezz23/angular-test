@@ -1,17 +1,10 @@
 <div class="converter">
-  <div class="converter__item" *ngFor="let converterData of (convertersData$ | async)">
-    <h4>Currency #{{converterData.id}}</h4>
-    <mat-form-field appearance="outline">
-      <mat-label>Currency</mat-label>
-      <mat-select
-        (selectionChange)="onChanges($event.value, converterData.id)">
-        <mat-option
-          *ngFor="let currency of (currenciesFullNameList$ | async)"
-          [value]="currency">{{currency}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <span>Amount: {{converterData.amount}}</span>
+  <div *ngFor="let converter of (convertersData$ | async)">
+    <converter-select
+      [selectFullName]="converter.fullName"
+      [selectId]="converter.id"
+      [selectAmount]="converter.amount">
+    </converter-select>
   </div>
   <div class="converter__result" *ngIf="(result !== 0)">
     {{result}}

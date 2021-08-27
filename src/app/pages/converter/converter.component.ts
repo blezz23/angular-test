@@ -12,14 +12,12 @@ import { ConverterService } from "./converter.service";
 
 export class ConverterComponent implements OnInit {
   public convertersData$!: Observable<ConverterModel[]>;
-  public currenciesFullNameList$!: Observable<string[]>;
   public result = 0;
 
   constructor(private converterService: ConverterService) {}
 
   ngOnInit(): void {
-    this.convertersData$ = this.converterService.converters$;
-    this.currenciesFullNameList$ = this.converterService.currenciesFullNameList$;
+    this.convertersData$ = this.converterService.convertersState$;
   }
 
   public onChanges(currencyName: string, id: number) {

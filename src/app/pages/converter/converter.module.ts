@@ -6,10 +6,12 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatOptionModule } from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { ConverterSelectComponent } from "./converter-select/converter-select.component";
 
 @NgModule({
   declarations: [
-    ConverterComponent
+    ConverterComponent,
+    ConverterSelectComponent
   ],
   imports: [
     CommonModule,

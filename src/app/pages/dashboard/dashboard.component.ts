@@ -1,8 +1,8 @@
-import {ChangeDetectionStrategy, Component, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from '@angular/core';
 import { DashboardService } from "./dashboard.service";
 import { ChartModel } from "../../models/chart.model";
 import { Observable } from "rxjs";
-import {ChartBase, ChartEditorComponent, ChartType} from "angular-google-charts";
+import { ChartBase, ChartEditorComponent, ChartType } from "angular-google-charts";
 
 @Component({
   selector: 'app-dashboard',
@@ -29,7 +29,7 @@ export class DashboardComponent implements OnInit {
       .afterClosed()
       .subscribe( result => {
         if (result) {
-          this.dashboardService.setOptions(id, result.getChartType() as ChartType, result.getOptions())
+          this.dashboardService.setOptions(id, result.getChartType() as ChartType, result.getOptions());
         }
       })
   }

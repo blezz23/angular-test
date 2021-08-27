@@ -1,0 +1,16 @@
+<div class="converter__select">
+  <h4>Currency #{{selectId}}</h4>
+  <mat-form-field appearance="outline">
+    <mat-label>Currency</mat-label>
+    <mat-select
+      [(value)]="selectFullName"
+      (selectionChange)="onChanges($event.value, selectId)">
+      <mat-option
+        *ngFor="let currency of (currenciesFullNameList$ | async)"
+        [value]="currency">
+        {{currency}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <span>Amount: {{selectAmount.toFixed(2)}}</span>
+</div>

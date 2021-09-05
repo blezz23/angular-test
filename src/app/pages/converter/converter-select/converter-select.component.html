@@ -12,5 +12,5 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <span>Amount: {{selectAmount.toFixed(2)}}</span>
+  <span>Amount: ${{ selectAmount ? (1/selectAmount).toFixed(3) : selectAmount}}</span>
 </div>
